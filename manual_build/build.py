@@ -105,6 +105,12 @@ def build_docker_command(build_config, workspace_path):
     # Add config directory so ZMK can find custom shields
     build_cmd_parts.append(f"-DZMK_CONFIG=/workspace/config")
 
+    # If this repo has been refactored to the new module-based layout (no config/boards),
+    # expose the repo root as an extra Zephyr module so boards/shields are discovered.
+    # (Inside the container, the repo root is mounted at /workspace)
+    if (workspace_path / "zephyr" / "module.yml").exists():
+        build_cmd_parts.append(f"-DZMK_EXTRA_MODULES=/workspace")
+
     # Add shield (quoted to handle shields with spaces like "prospector_dongle prospector_adapter")
     build_cmd_parts.append(f'-DSHIELD="{shield}"')
 
