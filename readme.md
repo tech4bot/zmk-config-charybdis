@@ -1,4 +1,4 @@
-# ZMK CONFIG FOR THE CHARYBDIS 4X6 WIRELESS SPLIT KEYBOARD
+# ZMK CONFIG FOR THE CHARYBDIS 4X6 WIRELESS SPLIT KEYBOARD ZEPHYR 4.1
 
 This configuration supports two modes:
 
@@ -7,7 +7,7 @@ This configuration supports two modes:
 
 ## Table of Contents
 
-- [ZMK CONFIG FOR THE CHARYBDIS 4X6 WIRELESS SPLIT KEYBOARD](#zmk-config-for-the-charybdis-4x6-wireless-split-keyboard)
+- [ZMK CONFIG FOR THE CHARYBDIS 4X6 WIRELESS SPLIT KEYBOARD ZEPHYR 4.1](#zmk-config-for-the-charybdis-4x6-wireless-split-keyboard-zephyr-41)
   - [Table of Contents](#table-of-contents)
   - [BOM](#bom)
     - [Additional Components for Dongle Mode](#additional-components-for-dongle-mode)
