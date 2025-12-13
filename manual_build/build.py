@@ -72,6 +72,14 @@ def clean_west_workspace(west_workspace_path: Path):
     west_workspace_path.mkdir(parents=True, exist_ok=True)
 
 
+def clean_artifacts(artifacts_path: Path):
+    """Delete local build artifacts under manual_build/artifacts/."""
+    if not artifacts_path.exists():
+        return
+    shutil.rmtree(artifacts_path, ignore_errors=True)
+    artifacts_path.mkdir(parents=True, exist_ok=True)
+
+
 def build_docker_command(build_config, workspace_path):
     """Construct the Docker build command."""
     board = build_config.get('board')
@@ -350,11 +358,18 @@ def main():
     west_workspace_path = workspace_path / "manual_build" / "west-workspace"
     west_workspace_path.mkdir(parents=True, exist_ok=True)
 
+    artifacts_path = workspace_path / "manual_build" / "artifacts"
+    artifacts_path.mkdir(parents=True, exist_ok=True)
+
     # Optional dependency cleanup happens on the host BEFORE running Docker.
     if args.clean_deps:
         print("\nCleaning dependency workspace: manual_build/west-workspace/", flush=True)
         clean_west_workspace(west_workspace_path)
-        print("Dependency workspace cleaned.\n", flush=True)
+        print("Dependency workspace cleaned.", flush=True)
+
+        print("Cleaning build artifacts: manual_build/artifacts/", flush=True)
+        clean_artifacts(artifacts_path)
+        print("Build artifacts cleaned.\n", flush=True)
 
     # Build Docker command
     docker_cmd, build_dir = build_docker_command(selected_build, workspace_path)

@@ -68,7 +68,9 @@ so subsequent builds do **not** re-download everything.
 
 Useful flags:
 
-- `--clean` (alias: `--clean-deps`): delete `manual_build/west-workspace/` and re-download dependencies on the next build
+- `--clean` (alias: `--clean-deps`): deletes **both**:
+  - `manual_build/west-workspace/` (dependencies; forces a fresh `west update`)
+  - `manual_build/artifacts/` (build outputs)
 
 ### How it works (repo stays clean)
 
