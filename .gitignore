@@ -2,11 +2,13 @@
 
 # Manual local build artifacts
 artifacts/
+manual_build/west-workspace/
 
 # Build artifacts (if created in root by accident)
 .west/
 zmk/
-zephyr/
+zephyr/*
+!zephyr/module.yml
 modules/
 bootloader/
 tools/
