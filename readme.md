@@ -90,40 +90,40 @@ The tester runs in USB-only mode (no BLE) and includes two physical layouts for 
 
 ## Repository Structure
 
-```
+```txt
 zmk-config-charybdis/
+├── boards/                          # Shield board definitions
+│   └── shields/
+│       ├── charybdis/           # Charybdis shield configuration
+│       │   ├── charybdis.dtsi                        # Common device tree (keyboard layout, kscan)
+│       │   ├── charybdis_layers.h                    # Shared layer definitions
+│       │   ├── charybdis_trackball_processors.dtsi   # Shared trackball processing config
+│       │   ├── charybdis_right_common.dtsi           # Shared right keyboard hardware config
+│       │   ├── charybdis_left.conf                   # Left side Kconfig options (empty)
+│       │   ├── charybdis_left.overlay                # Left side device tree overlay
+│       │   ├── charybdis_right_standalone.conf       # Right side Kconfig (standalone mode)
+│       │   ├── charybdis_right_standalone.overlay    # Right side overlay (standalone mode)
+│       │   ├── dongle_charybdis_right.conf           # Symlink → charybdis_right_standalone.conf
+│       │   ├── dongle_charybdis_right.overlay        # Right side overlay (dongle mode)
+│       │   ├── dongle_common.dtsi                    # Base shared dongle config (all variants)
+│       │   ├── dongle_nice_common.dtsi               # Nice!Nano platform common config
+│       │   ├── dongle_prospector_common.dtsi         # Prospector platform common config
+│       │   ├── dongle_prospector.conf                # Prospector dongle Kconfig options
+│       │   ├── dongle_prospector.overlay             # Prospector dongle device tree overlay
+│       │   ├── dongle_nice_32.conf                   # Nice!Nano dongle 32px Kconfig options
+│       │   ├── dongle_nice_32.overlay                # Nice!Nano dongle 32px device tree overlay
+│       │   ├── dongle_nice_64.conf                   # Nice!Nano dongle 64px Kconfig options
+│       │   ├── dongle_nice_64.overlay                # Nice!Nano dongle 64px device tree overlay
+│       │   ├── Kconfig.defconfig                     # Shield Kconfig definitions
+│       │   └── Kconfig.shield                        # Shield Kconfig options
+│       └── tester_pro_micro/    # Pro Micro GPIO tester shield
+│           ├── Kconfig.shield                        # Shield identifier
+│           ├── Kconfig.defconfig                     # Shield defaults (USB-only, no BLE)
+│           ├── tester_pro_micro.zmk.yml              # Shield metadata
+│           ├── tester_pro_micro.overlay              # GPIO pin definitions (18 pins)
+│           ├── tester_pro_micro.keymap               # Pin test macros
+│           └── tester_pro_micro-layouts.dtsi         # Physical layouts (pinout + single row)
 ├── config/                          # Main ZMK configuration directory
-│   ├── boards/                      # Shield board definitions
-│   │   └── shields/
-│   │       ├── charybdis/           # Charybdis shield configuration
-│   │       │   ├── charybdis.dtsi                        # Common device tree (keyboard layout, kscan)
-│   │       │   ├── charybdis_layers.h                    # Shared layer definitions
-│   │       │   ├── charybdis_trackball_processors.dtsi   # Shared trackball processing config
-│   │       │   ├── charybdis_right_common.dtsi           # Shared right keyboard hardware config
-│   │       │   ├── charybdis_left.conf                   # Left side Kconfig options (empty)
-│   │       │   ├── charybdis_left.overlay                # Left side device tree overlay
-│   │       │   ├── charybdis_right_standalone.conf       # Right side Kconfig (standalone mode)
-│   │       │   ├── charybdis_right_standalone.overlay    # Right side overlay (standalone mode)
-│   │       │   ├── dongle_charybdis_right.conf           # Symlink → charybdis_right_standalone.conf
-│   │       │   ├── dongle_charybdis_right.overlay        # Right side overlay (dongle mode)
-│   │       │   ├── dongle_common.dtsi                    # Base shared dongle config (all variants)
-│   │       │   ├── dongle_nice_common.dtsi               # Nice!Nano platform common config
-│   │       │   ├── dongle_prospector_common.dtsi         # Prospector platform common config
-│   │       │   ├── dongle_prospector.conf                # Prospector dongle Kconfig options
-│   │       │   ├── dongle_prospector.overlay             # Prospector dongle device tree overlay
-│   │       │   ├── dongle_nice_32.conf                   # Nice!Nano dongle 32px Kconfig options
-│   │       │   ├── dongle_nice_32.overlay                # Nice!Nano dongle 32px device tree overlay
-│   │       │   ├── dongle_nice_64.conf                   # Nice!Nano dongle 64px Kconfig options
-│   │       │   ├── dongle_nice_64.overlay                # Nice!Nano dongle 64px device tree overlay
-│   │       │   ├── Kconfig.defconfig                     # Shield Kconfig definitions
-│   │       │   └── Kconfig.shield                        # Shield Kconfig options
-│   │       └── tester_pro_micro/    # Pro Micro GPIO tester shield
-│   │           ├── Kconfig.shield                        # Shield identifier
-│   │           ├── Kconfig.defconfig                     # Shield defaults (USB-only, no BLE)
-│   │           ├── tester_pro_micro.zmk.yml              # Shield metadata
-│   │           ├── tester_pro_micro.overlay              # GPIO pin definitions (18 pins)
-│   │           ├── tester_pro_micro.keymap               # Pin test macros
-│   │           └── tester_pro_micro-layouts.dtsi         # Physical layouts (pinout + single row)
 │   ├── charybdis.conf               # Global ZMK configuration
 │   ├── charybdis.keymap             # Keymap definition file
 │   ├── charybdis.zmk.yml            # ZMK build configuration
@@ -227,6 +227,7 @@ In dongle mode, a dedicated dongle acts as the central device with a display:
 Two variants are available based on OLED display size:
 
 **128x32 OLED (dongle_nice_32):**
+
 - **Display**: 128x32 OLED (SSD1306) via I2C (0.91" module)
 - **Active layer name** with center alignment and scrolling support
 - **Peripheral battery levels** (left + right keyboards)
@@ -237,6 +238,7 @@ Two variants are available based on OLED display size:
 - **Optimized for 32px height**: Bongo cat disabled, modifiers optional
 
 **128x64 OLED (dongle_nice_64):**
+
 - **Display**: 128x64 OLED (SSD1306) via I2C (0.96" module)
 - **Active layer name** with center alignment and scrolling support
 - **Peripheral battery levels** (left + right keyboards)
@@ -342,7 +344,7 @@ The trackball sensitivity can be adjusted at both hardware and software levels.
 
 ### Hardware Sensor Sensitivity (CPI/DPI)
 
-The PMW3610 trackball sensor CPI (Counts Per Inch) is configured in [`config/boards/shields/charybdis/charybdis_right_common.dtsi`](/config/boards/shields/charybdis/charybdis_right_common.dtsi):
+The PMW3610 trackball sensor CPI (Counts Per Inch) is configured in [`boards/shields/charybdis/charybdis_right_common.dtsi`](/boards/shields/charybdis/charybdis_right_common.dtsi):
 
 ```dts
 trackball: trackball@0 {
@@ -361,7 +363,7 @@ trackball: trackball@0 {
 
 ### Software Scaling (Movement Speed)
 
-Software scaling is configured per layer in [`config/boards/shields/charybdis/charybdis_trackball_processors.dtsi`](/config/boards/shields/charybdis/charybdis_trackball_processors.dtsi). The trackball has three different modes with independent sensitivity settings:
+Software scaling is configured per layer in [`boards/shields/charybdis/charybdis_trackball_processors.dtsi`](/boards/shields/charybdis/charybdis_trackball_processors.dtsi). The trackball has three different modes with independent sensitivity settings:
 
 ```dts
 // Normal cursor movement (BASE and POINTER layers)
@@ -417,7 +419,7 @@ This configuration includes support for [ZMK Studio](https://zmk.dev/docs/featur
 
 ### Physical Layout Definition
 
-The physical layout for ZMK Studio is defined in [`config/boards/shields/charybdis/charybdis.dtsi`](/config/boards/shields/charybdis/charybdis.dtsi) in the `charybdis_6col_layout` section. This defines the physical key positions, sizes, and rotations needed for the visual representation in ZMK Studio.
+The physical layout for ZMK Studio is defined in [`boards/shields/charybdis/charybdis.dtsi`](/boards/shields/charybdis/charybdis.dtsi) in the `charybdis_6col_layout` section. This defines the physical key positions, sizes, and rotations needed for the visual representation in ZMK Studio.
 
 ### Enabling/Disabling ZMK Studio
 
@@ -435,6 +437,7 @@ ZMK Studio support is enabled by default via the build configuration in [`build.
 **Dongle mode** - Multiple dongles have ZMK Studio:
 
 **Prospector dongle:**
+
 ```yaml
 - board: seeeduino_xiao_ble
   shield: dongle_prospector prospector_adapter
@@ -443,6 +446,7 @@ ZMK Studio support is enabled by default via the build configuration in [`build.
 ```
 
 **Nice!Nano dongles (both 32px and 64px):**
+
 ```yaml
 - board: nice_nano_v2
   shield: dongle_nice_32 dongle_display  # or dongle_nice_64
