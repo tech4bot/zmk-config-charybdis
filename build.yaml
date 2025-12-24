@@ -24,12 +24,13 @@ include:
 #   cmake-args: -DCONFIG_ZMK_STUDIO=y
 
 # Dongle mode - nice_nano dongle with OLED display
+# DISPLAY DISABLED FOR TESTING - removed dongle_display shield
 - board: nice_nano
-  shield: dongle_nice_32 dongle_display
+  shield: dongle_nice_32
   snippet: studio-rpc-usb-uart
   cmake-args: -DCONFIG_ZMK_STUDIO=y
 - board: nice_nano
-  shield: dongle_nice_64 dongle_display
+  shield: dongle_nice_64
   snippet: studio-rpc-usb-uart
   cmake-args: -DCONFIG_ZMK_STUDIO=y
 
