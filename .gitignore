@@ -9,3 +9,7 @@ manual_build/artifacts/
 # Python
 __pycache__/
 *.pyc
+
+# editors
+.vscode/
+.idea/
